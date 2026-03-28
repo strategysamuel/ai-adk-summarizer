@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>AI Summarizer Agent</title>
+    <style>
+        body {
+            font-family: Arial;
+            background: #f5f5f5;
+            text-align: center;
+            padding: 40px;
+        }
+        textarea {
+            width: 60%;
+            height: 120px;
+            padding: 10px;
+        }
+        button {
+            padding: 10px 20px;
+            margin-top: 10px;
+        }
+        .output {
+            margin-top: 20px;
+            background: white;
+            padding: 20px;
+            width: 60%;
+            margin-left: auto;
+            margin-right: auto;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<h2>🤖 AI Summarizer Agent</h2>
+
+<textarea id="inputText" placeholder="Enter text here..."></textarea><br>
+<button onclick="summarize()">Summarize</button>
+
+<div class="output" id="result"></div>
+
+<script>
+async function summarize() {
+    const text = document.getElementById("inputText").value;
+
+    const response = await fetch("/summarize", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ text })
+    });
+
+    const data = await response.json();
+
+    document.getElementById("result").innerHTML =
+        "<b>Summary:</b><br>" + data.summary;
+}
+</script>
+
+</body>
+</html>
